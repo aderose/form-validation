@@ -1,0 +1,16 @@
+/* Basic styling reset */
+* {
+  box-sizing: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Variables */
+:root {
+  --base: rgb(235, 235, 235);
+}
+
+/* General elements */
+body {
+  background-color: var(--base);
+}
