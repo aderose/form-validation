@@ -1,6 +1,6 @@
 import form from './form';
 
-const signUpForm = form.create([
+const fields = [
   {
     type: 'label',
     textContent: 'Email',
@@ -86,10 +86,22 @@ const signUpForm = form.create([
       },
       {
         type: 'input',
-        attributes: { type: 'submit', value: 'Cancel', class: 'cancel' },
+        attributes: { type: 'reset', value: 'Cancel', class: 'cancel' },
       },
     ],
   },
+];
+
+const signUpForm = form.create(fields);
+
+// listen for changes on the sign-up form
+signUpForm.listen([
+  { id: 'email', validation: ['email'] },
+  { id: 'country', validation: ['text'] },
+  { id: 'zipcode', validation: ['text', 'number'] },
+  { id: 'password', validation: ['text', 'number'] },
+  { id: 'confirmpw', validation: ['equal password'] },
 ]);
 
-document.querySelector('.content').appendChild(signUpForm);
+// add form to the document content
+document.querySelector('.content').appendChild(signUpForm.parent);
