@@ -1,16 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 /* Basic styling reset */
 * {
-  box-sizing: 0;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Variables */
 :root {
-  --base: rgb(235, 235, 235);
+  --foreground: rgba(50, 50, 50);
+  --base: #eee;
+  --clear: white;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --important: rgb(200, 0, 0);
+  --highlight: rgba(255, 0, 0, 0.05);
 }
 
 /* General elements */
 body {
   background-color: var(--base);
+  font-size: 16px;
+  width: 100vw;
+}
+
+/* page container */
+.content {
+  width: 100%;
+  max-width: 600px;
+  margin: 5em auto 0 auto;
+}
+
+/* Form */
+.general-form {
+  display: flex;
+  flex-direction: column;
+  color: var(--foreground);
+  background-color: var(--clear);
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 0 3px 2px var(--shadow);
+}
+
+/* Form elements */
+
+.general-form .required {
+  color: var(--important);
+  font-style: italic;
+}
+
+.general-form input {
+  border: none;
+  background-color: var(--base);
+  margin-bottom: 1em;
+  padding: 0.75em;
+  border-radius: 5px;
+}
+
+.general-form input:hover {
+  filter: brightness(95%);
+}
+
+.general-form input:focus {
+  outline: none;
+}
+
+.general-form label {
+  margin-bottom: 0.5em;
+  pointer-events: none;
+}
+
+/* Form confirmation buttons */
+
+.confirmation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
+.confirmation input {
+  width: 40%;
+  margin-bottom: 0;
+  font-weight: 700;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.general-form .confirm {
+  background-color: var(--important);
+  color: var(--clear);
+}
+
+.general-form .cancel {
+  background-color: transparent;
+  color: var(--important);
+  border: 1px solid var(--important);
+}
+
+.cancel:hover {
+  background-color: var(--highlight);
+}
+
+.confirmation input:hover {
+  filter: brightness(115%);
 }
