@@ -18,19 +18,41 @@ export default (function form() {
       {},
     );
 
+    // get an element from the form given its ID
+    function getElementById(id) {
+      return Array.from(parent.childNodes).find((child) => child.id === id);
+    }
+
     // listen for any updates to the form
-    function listen(inputs) {
-      // prevent default form action & validate all input
+    function listen({ errorFieldId, inputs }) {
+      // gather the container error element with the provided ID
+      const errorEl = getElementById(errorFieldId);
+
+      // prevent default form action & validate all input from bottom to top
       parent.addEventListener('submit', (e) => {
         e.preventDefault();
-        validator.validateAll();
+        // iterate through all input elements and validate input
+        let counter = 0;
+        for (const { id, name, equalToId } of inputs) {
+          const inputEl = inputElements[id];
+          const options = { inputEl, inputName: name, errorEl };
+          if (equalToId) options.equalTo = getElementById(equalToId);
+
+          if (!validator.validate(options)) break;
+          counter += 1;
+        }
+        if (counter === inputs.length) console.log('Success!');
       });
 
       inputs.forEach((input) => {
         // assuming all provided input ids match elements in the form
         const inputEl = inputElements[input.id];
         inputEl.addEventListener('blur', () => {
-          validator.validate({ inputEl, validation: input.validation });
+          const options = { inputEl, inputName: input.name, errorEl };
+          if (input.equalToId)
+            options.equalTo = getElementById(input.equalToId);
+
+          validator.validate(options);
         });
       });
     }
