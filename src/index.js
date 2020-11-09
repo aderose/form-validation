@@ -18,12 +18,22 @@ const fields = [
     textContent: 'Country',
     attributes: { for: 'country' },
     children: [
-      { type: 'span', textContent: '*', attributes: { class: 'required' } },
+      {
+        type: 'span',
+        textContent: '*',
+        attributes: { class: 'required' },
+      },
     ],
   },
   {
     type: 'input',
-    attributes: { type: 'text', name: 'country', id: 'country', required: '' },
+    attributes: {
+      type: 'text',
+      name: 'country',
+      id: 'country',
+      required: '',
+      pattern: "[A-Za-z ']+",
+    },
   },
   {
     type: 'label',
@@ -35,7 +45,13 @@ const fields = [
   },
   {
     type: 'input',
-    attributes: { type: 'text', name: 'zipcode', id: 'zipcode', required: '' },
+    attributes: {
+      type: 'text',
+      name: 'zipcode',
+      id: 'zipcode',
+      required: '',
+      pattern: '[A-Za-z0-9 ]+',
+    },
   },
   {
     type: 'label',
@@ -52,6 +68,7 @@ const fields = [
       name: 'password',
       id: 'password',
       required: '',
+      pattern: '[A-Za-z0-9 ]+',
     },
   },
   {
@@ -69,12 +86,13 @@ const fields = [
       name: 'confirmpw',
       id: 'confirmpw',
       required: '',
+      pattern: '[A-Za-z0-9 ]+',
     },
   },
   {
     type: 'div',
     textContent: '* This field is required.',
-    attributes: { class: 'required' },
+    attributes: { class: 'required', id: 'error' },
   },
   {
     type: 'div',
@@ -95,13 +113,20 @@ const fields = [
 const signUpForm = form.create(fields);
 
 // listen for changes on the sign-up form
-signUpForm.listen([
-  { id: 'email', validation: ['email'] },
-  { id: 'country', validation: ['text'] },
-  { id: 'zipcode', validation: ['text', 'number'] },
-  { id: 'password', validation: ['text', 'number'] },
-  { id: 'confirmpw', validation: ['equal password'] },
-]);
+signUpForm.listen({
+  errorFieldId: 'error',
+  inputs: [
+    { id: 'email', name: 'Email' },
+    { id: 'country', name: 'Country' },
+    { id: 'zipcode', name: 'Zip code' },
+    { id: 'password', name: 'Password', equalToId: 'confirmpw' },
+    {
+      id: 'confirmpw',
+      name: 'Password confirmation',
+      equalToId: 'password',
+    },
+  ],
+});
 
 // add form to the document content
 document.querySelector('.content').appendChild(signUpForm.parent);

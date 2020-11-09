@@ -15,6 +15,7 @@
   --shadow: rgba(0, 0, 0, 0.1);
   --important: rgb(200, 0, 0);
   --highlight: rgba(255, 0, 0, 0.05);
+  --warning: rgba(255, 0, 0, 0.3);
 }
 
 /* General elements */
@@ -103,4 +104,9 @@ body {
 
 .confirmation input:hover {
   filter: brightness(115%);
+}
+
+/* Validation styling */
+.warning {
+  box-shadow: 0 0 3px 3px var(--warning);
 }
